@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+  UDS ClickHouse: retention (TTL) for the system.* log tables.
+  Mount into /etc/clickhouse-server/config.d/ (see docker-compose snippet).
+
+  Rows older than the number of days below are deleted automatically. Without this the
+  system log tables grow forever.
+  A table that does not exist in this ClickHouse version is ignored.
+  Do NOT add opentelemetry_span_log: it defines its own <engine>, and ClickHouse then
+  refuses to start when a TTL is added.
+  "zz-" makes the file load after the server's own files, so it wins.
+  To change the retention, edit the number of days and restart the container.
+  Existing system tables are renamed to <name>_0, <name>_1, ... on the first restart
+  (they keep their data and disk space until dropped, see the cleanup runbook).
+-->
+<clickhouse>
+    <!-- diagnostics: 7 days -->
+    <asynchronous_metric_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></asynchronous_metric_log>
+    <trace_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></trace_log>
+    <metric_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></metric_log>
+    <query_thread_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></query_thread_log>
+    <part_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></part_log>
+    <query_views_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></query_views_log>
+    <session_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></session_log>
+    <text_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></text_log>
+    <processors_profile_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></processors_profile_log>
+    <error_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></error_log>
+    <query_metric_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></query_metric_log>
+    <latency_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></latency_log>
+    <backup_log><ttl>event_date + INTERVAL 7 DAY DELETE</ttl></backup_log>
+    <!-- kept longer: query history -->
+    <query_log><ttl>event_date + INTERVAL 30 DAY DELETE</ttl></query_log>
+</clickhouse>

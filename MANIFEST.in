@@ -1,0 +1,2 @@
+recursive-include tutorclickhouse_log_retention/patches *
+recursive-include tutorclickhouse_log_retention/templates *

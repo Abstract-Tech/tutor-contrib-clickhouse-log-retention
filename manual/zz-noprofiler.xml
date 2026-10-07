@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+  UDS ClickHouse: query profiler off. The profiler samples stack traces of every running
+  query, which is what makes system.trace_log huge.
+  A user-profile setting, so this file must be mounted into /etc/clickhouse-server/users.d/
+  (not config.d). Keep it in its own file: a second <profiles> block in the same file as
+  another <profiles> block is ignored.
+-->
+<clickhouse>
+    <profiles>
+        <default>
+            <query_profiler_real_time_period_ns>0</query_profiler_real_time_period_ns>
+            <query_profiler_cpu_time_period_ns>0</query_profiler_cpu_time_period_ns>
+        </default>
+    </profiles>
+</clickhouse>

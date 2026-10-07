@@ -1,0 +1,2 @@
+{# Aspects TTL: filled from the shared TTL file, see templates/clickhouse-log-retention/ttl-body.xml #}
+{% include "clickhouse-log-retention/ttl-body.xml" %}

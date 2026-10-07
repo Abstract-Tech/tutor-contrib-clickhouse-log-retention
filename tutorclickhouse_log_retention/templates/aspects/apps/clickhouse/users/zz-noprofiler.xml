@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- Aspects: query profiler off (it is what makes system.trace_log huge).
+     Aspects mounts this whole directory into users.d, so this file is picked up.
+     Own file on purpose: Aspects' user_config.xml already has a <profiles> block and
+     ClickHouse ignores a second <profiles> block in the same file, so the official
+     "clickhouse-user-config" patch cannot be used for this. -->
+<clickhouse>
+    <profiles>
+        <default>
+            <query_profiler_real_time_period_ns>0</query_profiler_real_time_period_ns>
+            <query_profiler_cpu_time_period_ns>0</query_profiler_cpu_time_period_ns>
+        </default>
+    </profiles>
+</clickhouse>

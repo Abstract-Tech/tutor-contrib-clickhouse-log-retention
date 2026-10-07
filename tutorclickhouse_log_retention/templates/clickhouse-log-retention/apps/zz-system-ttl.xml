@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Cairn: TTL for the system log tables. Mounted into config.d by local/docker-compose.override.yml.
+     <yandex> is the root tag Cairn's own users.d/cairn.xml uses; every ClickHouse version accepts it.
+     "zz-" makes it load after the server's own files, so it wins. -->
+<yandex>
+{% include "clickhouse-log-retention/ttl-body.xml" %}
+</yandex>

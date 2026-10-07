@@ -1,0 +1,26 @@
+{# The TTL elements, without a root tag. Shared by Aspects (as a patch) and Cairn (included in its own file). #}
+{# A value below 1 is raised to 1, so a typo can never mean "delete everything immediately". #}
+{% set days = [CLICKHOUSE_LOG_RETENTION_DAYS | int(0), 1] | max %}
+{% set query_log_days = [CLICKHOUSE_LOG_RETENTION_QUERY_LOG_DAYS | int(0), 1] | max %}
+{# A table that does not exist in a given ClickHouse version is ignored.
+   Do NOT add opentelemetry_span_log: its default config defines an explicit <engine>,
+   and ClickHouse then refuses to start when a TTL is added. #}
+{% for table in [
+    "asynchronous_metric_log",
+    "trace_log",
+    "metric_log",
+    "query_thread_log",
+    "part_log",
+    "query_views_log",
+    "session_log",
+    "text_log",
+    "processors_profile_log",
+    "error_log",
+    "query_metric_log",
+    "latency_log",
+    "backup_log",
+] %}
+<{{ table }}><ttl>event_date + INTERVAL {{ days }} DAY DELETE</ttl></{{ table }}>
+{% endfor %}
+{# Kept longer: the Aspects performance dashboards read query_log. #}
+<query_log><ttl>event_date + INTERVAL {{ query_log_days }} DAY DELETE</ttl></query_log>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- Cairn: query profiler off (it is what makes system.trace_log huge).
+     A user-profile setting, so it must be in users.d, not config.d.
+     Own file on purpose: a second <profiles> block in the same file is ignored. -->
+<yandex>
+    <profiles>
+        <default>
+            <query_profiler_real_time_period_ns>0</query_profiler_real_time_period_ns>
+            <query_profiler_cpu_time_period_ns>0</query_profiler_cpu_time_period_ns>
+        </default>
+    </profiles>
+</yandex>

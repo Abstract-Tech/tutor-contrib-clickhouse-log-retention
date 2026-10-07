@@ -1,0 +1,13 @@
+{# Cairn only: mounts the two files from clickhouse-log-retention/apps into cairn-clickhouse.
+   Tutor loads this file for `tutor local`. Rendered to env/local/, so the paths are relative
+   to that directory (same style as Cairn's own mounts).
+   When Cairn is not used, the file is empty (a mount for a service that does not exist would break compose). #}
+{% if CAIRN_RUN_CLICKHOUSE is defined and CAIRN_RUN_CLICKHOUSE %}
+services:
+  cairn-clickhouse:
+    volumes:
+      - ../plugins/clickhouse-log-retention/apps/zz-system-ttl.xml:/etc/clickhouse-server/config.d/zz-system-ttl.xml:ro
+      - ../plugins/clickhouse-log-retention/apps/zz-noprofiler.xml:/etc/clickhouse-server/users.d/zz-noprofiler.xml:ro
+{% else %}
+services: {}
+{% endif %}
