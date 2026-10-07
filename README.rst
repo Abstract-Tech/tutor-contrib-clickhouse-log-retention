@@ -81,8 +81,14 @@ All the XML is in ``tutorclickhouse_log_retention/templates`` (real files, easy 
   ``docker-compose.override.yml`` in ``env/local`` (Tutor loads it for ``tutor local``).
   It replaces an existing override file of that name. Kubernetes is not covered.
 
-Tested with Tutor 16 to 22 (Cairn 16 to 22, Aspects 0.107 to 6.0), and against real
-ClickHouse 22.1, 24.1, 24.2, 24.3, 24.8 and 25.8 containers.
+Requires Tutor 14.0 or newer.
+
+Tested with:
+
+- Cairn: Tutor 14.0 to 22 (Cairn 14 to 22), with a real ``tutor dev start -d cairn-clickhouse``
+  on every version, against ClickHouse 21.11, 22.1, 24.1 and 24.2.
+- Aspects: Tutor 16 to 22 (Aspects 0.90 to 6.0), against ClickHouse 23.8, 24.3, 24.8 and
+  25.8 (Aspects needs Tutor 15 or newer itself).
 
 Hosts that are not Tutor (plain Docker Compose)
 ***********************************************
